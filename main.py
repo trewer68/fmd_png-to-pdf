@@ -33,6 +33,7 @@ if __name__ == "__main__":
         merge_pdfs(*pdf_files)
     else:
         folder = sys.argv[1]
-        output_file = os.path.join(folder, "output.pdf")
+        folder_name = os.path.basename(folder)
+        output_file = os.path.join(folder, f"{folder_name}.pdf")
         images_to_pdf(folder, output_file)
-        print(f"PDF из картинок сохранен: {output_file}")
+        print(f"PDF из PNG сохранен: {output_file}")
