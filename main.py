@@ -21,7 +21,7 @@ def merge_pdfs(*pdf_files):
         pdf_out.save(output_file)
 
     print(f"Объединенный PDF сохранен: {output_file}")
-    input("Нажмите Enter, чтобы выйти...")  # Ожидает ввода, чтобы не закрылась консоль
+    # input("Нажмите Enter, чтобы выйти...")  # Ожидает ввода, чтобы не закрылась консоль
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
