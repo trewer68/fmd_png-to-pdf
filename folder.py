@@ -12,7 +12,7 @@ if len(sys.argv) < 2:
 
 source_folder = sys.argv[1]
 
-folder_name = os.path.basename(folder_path)
+folder_name = os.path.basename(source_folder)
 
 chapter_files = {}
 
