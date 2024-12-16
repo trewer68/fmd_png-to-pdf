@@ -3,6 +3,8 @@ import re
 import sys
 import subprocess
 
+folder_path="merged"
+
 # Папка с файлами
 if len(sys.argv) < 2:
     print("Usage: python script.py <folder_path>")
@@ -31,3 +33,12 @@ for chapter, files in chapter_files.items():
         print(f"Chapter {chapter}: Files merged successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Error merging files for Chapter {chapter}: {e}")
+
+#Переименование файла
+for filename in os.listdir(folder_path):
+    if filename.endswith('.pdf'):
+        match = re.search(r'(\d{3})', filename)
+        if match:
+            tom_number = match.group(1)
+            new_name = f'{tom_number}.pdf'
+            os.rename(os.path.join(folder_path, filename), os.path.join(folder_path, new_name))
