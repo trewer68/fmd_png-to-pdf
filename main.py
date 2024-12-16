@@ -7,8 +7,12 @@ def merge_pdfs(*pdf_files):
         print("Нужно минимум два PDF для объединения")
         sys.exit(1)
 
-    # Получаем имя первого PDF-файла без расширения для выходного файла
-    output_file = os.path.splitext(pdf_files[0])[0] + "_merged.pdf"
+    # Создаем подпапку "merged", если она не существует
+    merged_folder = "merged"
+    os.makedirs(merged_folder, exist_ok=True)
+
+    # Имя выходного файла на основе первого PDF
+    output_file = os.path.join(merged_folder, os.path.splitext(os.path.basename(pdf_files[0]))[0] + "_merged.pdf")
 
     print("Объединяем следующие файлы:")
     for pdf in pdf_files:
