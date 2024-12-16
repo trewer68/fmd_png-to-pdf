@@ -12,6 +12,8 @@ if len(sys.argv) < 2:
 
 source_folder = sys.argv[1]
 
+folder_name = os.path.basename(folder_path)
+
 chapter_files = {}
 
 # Перебираем файлы в папке
@@ -29,10 +31,10 @@ for filename in os.listdir(source_folder):
 # Передача файлов в merger.exe
 for chapter, files in chapter_files.items():
     try:
-        subprocess.run(["!merger.exe", *files], check=True)
-        print(f"Chapter {chapter}: Files merged successfully.")
+        subprocess.run(["merger.exe", *files], check=True)
+        print(f"Chapter {chapter}: Files merged successfully.\n")
     except subprocess.CalledProcessError as e:
-        print(f"Error merging files for Chapter {chapter}: {e}")
+        print(f"Error merging files for Chapter {chapter}: {e}\n")
 
 #Переименование файла
 for filename in os.listdir(folder_path):
@@ -40,5 +42,7 @@ for filename in os.listdir(folder_path):
         match = re.search(r'(\d{3})', filename)
         if match:
             tom_number = match.group(1)
-            new_name = f'{tom_number}.pdf'
+            new_name = f'{tom_number}-{folder_name}.pdf'
             os.rename(os.path.join(folder_path, filename), os.path.join(folder_path, new_name))
+
+input("\nНажмите Enter, чтобы выйти...")  # Ожидает ввода, чтобы не закрылась консоль
