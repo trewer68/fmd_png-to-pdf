@@ -28,6 +28,9 @@ for filename in os.listdir(source_folder):
                 chapter_files[chapter] = []
             chapter_files[chapter].append(os.path.join(source_folder, filename))
 
+for chapter in chapter_files:
+    chapter_files[chapter].sort(key=lambda x: int(re.search(r'(\d+)\.pdf$', x).group(1)))
+
 # Передача файлов в merger.exe
 for chapter, files in chapter_files.items():
     try:
