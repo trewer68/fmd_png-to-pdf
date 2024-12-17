@@ -16,8 +16,10 @@ folder_name = os.path.basename(source_folder)
 
 chapter_files = {}
 
+
 # Перебираем файлы в папке
-for filename in os.listdir(source_folder):
+files = sorted(os.listdir(source_folder), key=lambda x: [int(num) if num.isdigit() else num for num in re.split(r'(\d+)', x)])
+for filename in files:
     if os.path.isfile(os.path.join(source_folder, filename)):
         # Извлекаем номер главы
         match = re.search(r'(\d{3})', filename)
@@ -28,14 +30,13 @@ for filename in os.listdir(source_folder):
                 chapter_files[chapter] = []
             chapter_files[chapter].append(os.path.join(source_folder, filename))
 
-for chapter in chapter_files:
-    chapter_files[chapter].sort(key=lambda x: int(re.search(r'(\d+)\.pdf$', x).group(1)))
-
 # Передача файлов в merger.exe
 for chapter, files in chapter_files.items():
     try:
+        # print(*files)
         subprocess.run(["merger.exe", *files], check=True)
         print(f"Chapter {chapter}: Files merged successfully.\n")
+        # input()
     except subprocess.CalledProcessError as e:
         print(f"Error merging files for Chapter {chapter}: {e}\n")
 
